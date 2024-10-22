@@ -1,0 +1,6 @@
+@doctordash_backend_HostAddress = http://localhost:5249
+
+GET {{doctordash_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

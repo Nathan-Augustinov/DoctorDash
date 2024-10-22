@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "IpKtmGztoIlAvqGBVFB6P61KygkR/MsiSLjAIn0wtT4=",
+  "Source": "doctordash-backend",
+  "BasePath": "_content/doctordash-backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
