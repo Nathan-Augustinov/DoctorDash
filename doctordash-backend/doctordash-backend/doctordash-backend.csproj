@@ -11,4 +11,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\doctordash-backend.Models\doctordash-backend.Models.csproj" />
+    <ProjectReference Include="..\doctordash-backend.Services\doctordash-backend.Services.csproj" />
+  </ItemGroup>
+
 </Project>

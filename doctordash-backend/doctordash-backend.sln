@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "doctordash-backend", "doctordash-backend\doctordash-backend.csproj", "{B63739A5-6595-471E-A29E-068649B19455}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "doctordash-backend", "doctordash-backend\doctordash-backend.csproj", "{B63739A5-6595-471E-A29E-068649B19455}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "doctordash-backend.Models", "doctordash-backend.Models\doctordash-backend.Models.csproj", "{8C357B97-813D-49DC-B968-896C9A6BBA21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "doctordash-backend.Services", "doctordash-backend.Services\doctordash-backend.Services.csproj", "{9A68D8FC-6081-4B8B-8011-107B72795D7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{B63739A5-6595-471E-A29E-068649B19455}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B63739A5-6595-471E-A29E-068649B19455}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B63739A5-6595-471E-A29E-068649B19455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C357B97-813D-49DC-B968-896C9A6BBA21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C357B97-813D-49DC-B968-896C9A6BBA21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C357B97-813D-49DC-B968-896C9A6BBA21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C357B97-813D-49DC-B968-896C9A6BBA21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A68D8FC-6081-4B8B-8011-107B72795D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A68D8FC-6081-4B8B-8011-107B72795D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A68D8FC-6081-4B8B-8011-107B72795D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A68D8FC-6081-4B8B-8011-107B72795D7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
