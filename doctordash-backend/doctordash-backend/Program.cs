@@ -1,4 +1,7 @@
 using doctordash_backend.Models;
+using doctordash_backend.Services.Interfaces;
+using doctordash_backend.Services.Repositories;
+using doctordash_backend.Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<IRepository<User>, UserRepository>();
+builder.Services.AddTransient<IService<User>, UserService>();
 builder.Services.AddDbContext<DoctorDashContext>();
 
 var app = builder.Build();
