@@ -19,6 +19,6 @@ namespace doctordash_backend.Models
         public virtual DbSet<Doctor> Doctor { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    => optionsBuilder.UseSqlServer("Server=localhost,1433;Database=DoctorDash;User Id=sa;Password=cejsyq-muvzov-pojdA3;TrustServerCertificate=true;Encrypt=false;");
+    => optionsBuilder.UseSqlServer("Server=localhost;Database=DoctorDash;Trusted_Connection=True;Encrypt=false");
     }
 }
