@@ -9,7 +9,7 @@ namespace doctordash_backend.Services.Interfaces
 {
     public interface IRepository<T> where T : class
     {
-        Task<User> GetByIdAsync(Guid id);
+        Task<T> GetByIdAsync(Guid id);
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> CreateAsync (T entity);
         Task<T> UpdateAsync (T entity);
