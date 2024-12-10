@@ -14,6 +14,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IRepository<User>, UserRepository>();
 builder.Services.AddTransient<IService<User>, UserService>();
+builder.Services.AddTransient<IRepository<Doctor>, DoctorRepository>();
+builder.Services.AddTransient<IService<Doctor>, DoctorService>();
 builder.Services.AddDbContext<DoctorDashContext>();
 
 var app = builder.Build();
