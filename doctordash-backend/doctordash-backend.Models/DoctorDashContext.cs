@@ -16,7 +16,9 @@ namespace doctordash_backend.Models
         public DoctorDashContext(DbContextOptions<DoctorDashContext> options) : base(options) { }
 
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<Doctor> Doctor { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlServer("Server=localhost;Database=DoctorDash;Trusted_Connection=True;Encrypt=false");
+    => optionsBuilder.UseSqlServer("Server=localhost;Database=DoctorDash;Trusted_Connection=True;Encrypt=false");
     }
 }
