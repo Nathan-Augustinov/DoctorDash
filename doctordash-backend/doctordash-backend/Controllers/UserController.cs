@@ -98,5 +98,29 @@ namespace doctordash_backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        {
+            try
+            {
+                var user = await ((UserRepository)_repository).GetUserByEmailAsync(loginDto.Email);
+                if (user == null)
+                {
+                    return Unauthorized("User not found.");
+                }
+
+                if (user.Password != loginDto.Password)
+                {
+                    return Unauthorized("Invalid credentials.");
+                }
+
+                return Ok(new { Message = "Login successful", UserId = user.Id });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

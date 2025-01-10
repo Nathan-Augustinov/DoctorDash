@@ -18,6 +18,15 @@ builder.Services.AddTransient<IRepository<Doctor>, DoctorRepository>();
 builder.Services.AddTransient<IService<Doctor>, DoctorService>();
 builder.Services.AddDbContext<DoctorDashContext>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        builder =>
+        {
+            builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,6 +37,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

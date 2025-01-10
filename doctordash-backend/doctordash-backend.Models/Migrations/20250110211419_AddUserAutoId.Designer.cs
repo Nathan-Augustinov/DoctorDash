@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using doctordash_backend.Models;
 
@@ -11,9 +12,11 @@ using doctordash_backend.Models;
 namespace doctordash_backend.Models.Migrations
 {
     [DbContext(typeof(DoctorDashContext))]
-    partial class DoctorDashContextModelSnapshot : ModelSnapshot
+    [Migration("20250110211419_AddUserAutoId")]
+    partial class AddUserAutoId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

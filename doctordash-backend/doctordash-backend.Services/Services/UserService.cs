@@ -17,7 +17,7 @@ namespace doctordash_backend.Services.Services
         {
             _repository = repository;
         }
-        public Task<User> CreateAsync(User entity)
+        public async Task<User> CreateAsync(User entity)
         {
             if (entity == null)
             {
@@ -31,11 +31,14 @@ namespace doctordash_backend.Services.Services
             {
                 throw new ArgumentNullException("User details must be non-nullable and non-empty!");
             }
-            if (entity.CreatedAt < DateTimeOffset.Now)
+            var existingUser = await ((UserRepository)_repository).GetUserByEmailAsync(entity.Email);
+            if (existingUser != null)
             {
-                throw new Exception("Created at timestamp should not be in the past!");
+                throw new InvalidOperationException("Email already in use.");
             }
-            return _repository.CreateAsync(entity);
+            
+            entity.CreatedAt = DateTimeOffset.UtcNow;
+            return await _repository.CreateAsync(entity);
         }
 
         public async Task DeleteAsync(Guid id)
