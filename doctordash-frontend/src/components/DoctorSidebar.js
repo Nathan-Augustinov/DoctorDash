@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -7,10 +7,10 @@ import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import EventIcon from '@mui/icons-material/Event';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { Drawer, Typography, Box } from '@mui/material';
 
-const PatientSidebar = () => {
+const DoctorSidebar = () => {
 
   const navigate = useNavigate();
 
@@ -26,23 +26,23 @@ const PatientSidebar = () => {
     >
       <Box sx={{ padding: 2 }}>
         <Typography variant="h6" noWrap>
-          Patient Dashboard
+          Doctor Dashboard
         </Typography>
       </Box>
       <List>
-        <ListItem button component={Link} to="/patient-home/start">
+        <ListItem button component={Link} to="/doctor-home/start">
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
           <ListItemText primary="Start" />
         </ListItem>
-        <ListItem button component={Link} to="/patient-home/profile">
+        <ListItem button component={Link} to="/doctor-home/profile">
           <ListItemIcon>
             <PersonIcon />
           </ListItemIcon>
           <ListItemText primary="Profile" />
         </ListItem>
-        <ListItem button component={Link} to="/patient-home/appointments">
+        <ListItem button component={Link} to="/doctor-home/appointments">
           <ListItemIcon>
             <EventIcon />
           </ListItemIcon>
@@ -59,4 +59,4 @@ const PatientSidebar = () => {
   );
 };
 
-export default PatientSidebar;
+export default DoctorSidebar;

@@ -8,21 +8,17 @@ const PatientStartTab = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Mock fetching data
     fetchUpcomingAppointments();
     checkProfileCompletion();
   }, []);
 
   const fetchUpcomingAppointments = () => {
-    // Placeholder for fetching data
     setUpcomingAppointments([
       { id: 1, date: '2024-10-01', time: '15:00', doctor: 'Dr. Smith' }
     ]);
-    // Normally, you'd fetch this from the server
   };
 
   const checkProfileCompletion = () => {
-    // Simulate a profile check (normally you'd check if all required fields are filled)
     setProfileComplete(false);
   };
 
