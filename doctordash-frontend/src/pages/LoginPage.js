@@ -5,10 +5,12 @@ import { TextField, Button, Typography, Link } from '@mui/material';
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleLogin = async () => {
         const loginUrl = 'https://localhost:7038/api/user/login';
+        setError('');
         try {
             const response = await fetch(loginUrl, {
                 method: 'POST',
@@ -19,15 +21,17 @@ const LoginPage = () => {
             });
 
             if (!response.ok) {
-                throw new Error('Login failed');
+                const data = await response.json();
+                setError(data.message || 'Login failed');
+                return;
             }
 
-            const data = await response.json();
-            console.log("Login successful:", data);
-            navigate('/home'); // Redirect to home page on successful login
-        } catch (error) {
-            console.error("Login error:", error);
-            alert("Login failed: " + error.message);
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('sessionExpiry', Date.now() + (1000 * 60 * 60));
+
+            navigate('/home');
+        } catch (error) {      
+            setError("Network error: Unable to connect.");
         }
     };
 
@@ -53,6 +57,7 @@ const LoginPage = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
+            {error && <Typography color="error">{error}</Typography>}
             <Button variant="contained" color="primary" fullWidth onClick={handleLogin}>
                 Login
             </Button>

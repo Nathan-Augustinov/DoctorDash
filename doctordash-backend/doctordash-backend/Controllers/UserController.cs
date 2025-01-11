@@ -30,7 +30,7 @@ namespace doctordash_backend.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { Message = ex.Message });
             }
         }
 
@@ -107,19 +107,19 @@ namespace doctordash_backend.Controllers
                 var user = await ((UserRepository)_repository).GetUserByEmailAsync(loginDto.Email);
                 if (user == null)
                 {
-                    return Unauthorized("User not found.");
+                    return Unauthorized(new { Message = "User not found." });
                 }
-
-                if (user.Password != loginDto.Password)
+                bool validPassword = BCrypt.Net.BCrypt.Verify(loginDto.Password, user.Password);
+                if (!validPassword)
                 {
-                    return Unauthorized("Invalid credentials.");
+                    return Unauthorized(new { Message = "Invalid credentials." });
                 }
 
                 return Ok(new { Message = "Login successful", UserId = user.Id });
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message);
+                return BadRequest(new { Message = ex.Message });
             }
         }
     }

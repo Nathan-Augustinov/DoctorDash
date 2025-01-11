@@ -36,7 +36,8 @@ namespace doctordash_backend.Services.Services
             {
                 throw new InvalidOperationException("Email already in use.");
             }
-            
+
+            entity.Password = BCrypt.Net.BCrypt.HashPassword(entity.Password);
             entity.CreatedAt = DateTimeOffset.UtcNow;
             return await _repository.CreateAsync(entity);
         }

@@ -13,6 +13,7 @@ const RegisterPage = () => {
         role: ''
     });
     const [errors, setErrors] = useState({});
+    const [registerError, setRegisterError] = useState('');
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -64,6 +65,7 @@ const RegisterPage = () => {
     const handleRegister = async (event) => {
         const createUserUrl = 'https://localhost:7038/api/user';
         event.preventDefault();
+        setRegisterError('');
         if (validateForm()) {
             try {
                 const createUserResponse = await fetch(createUserUrl, {
@@ -76,16 +78,14 @@ const RegisterPage = () => {
     
                 if (!createUserResponse.ok) {
                     const errorResponse = await createUserResponse.json();
-                    alert("Failed to create user: " + (errorResponse.message || "Unknown error"));
+                    setRegisterError(errorResponse.message || "Failed to create user");
                     return;
                 }
     
-                const createdUser = await createUserResponse.json();
-                alert("User successfully registered!");
                 navigate('/login');
             } catch (error) {
                 console.error("Error during registration:", error);
-                alert("An error occurred during registration. Please try again.");
+                setRegisterError("Network error: Unable to connect.");
             }
         }
     };
@@ -166,6 +166,7 @@ const RegisterPage = () => {
                 </Select>
                 <FormHelperText style={{color: 'red'}}>{errors.role}</FormHelperText>
             </FormControl>
+            {registerError && <Typography color="error">{registerError}</Typography>}
             <Button variant="contained" color="primary" fullWidth onClick={handleRegister}>
                 Register
             </Button>
