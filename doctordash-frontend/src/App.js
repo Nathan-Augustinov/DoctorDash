@@ -3,8 +3,9 @@ import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import DoctorDashboard from './pages/DoctorDashboard';
-import PatientDashboard from './pages/PatientDashboard';
+// import DoctorDashboard from './pages/DoctorDashboard';
+// import PatientDashboard from './pages/PatientDashboard';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   useEffect(() => {
@@ -48,8 +49,8 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/register" element={<RegisterPage/>} />
-          <Route path="/doctor-home/*" element={<DoctorDashboard />} />
-          <Route path="/patient-home/*" element={<PatientDashboard/>} />
+          <Route path="/doctor-home/*" element={<Dashboard role="doctor"/>} />
+          <Route path="/patient-home/*" element={<Dashboard role="patient"/>} />
           <Route path="/" element={<Navigate replace to={roleRedirect()}/>}/>
         </Routes>
       </div>

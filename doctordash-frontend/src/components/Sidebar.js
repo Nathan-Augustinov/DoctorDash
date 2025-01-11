@@ -7,11 +7,10 @@ import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import EventIcon from '@mui/icons-material/Event';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { Drawer, Typography, Box } from '@mui/material';
 
-const PatientSidebar = () => {
-
+const Sidebar = ({ role }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -19,6 +18,13 @@ const PatientSidebar = () => {
     localStorage.removeItem('sessionExpiry');
     navigate('/login', { replace: true });
   };
+
+  const paths = {
+    start: `/${role.toLowerCase()}-home/start`,
+    profile: `/${role.toLowerCase()}-home/profile`,
+    appointments: `/${role.toLowerCase()}-home/appointments`
+  };
+
   return (
     <Drawer
       variant="permanent"
@@ -26,23 +32,23 @@ const PatientSidebar = () => {
     >
       <Box sx={{ padding: 2 }}>
         <Typography variant="h6" noWrap>
-          Patient Dashboard
+          {role} Dashboard
         </Typography>
       </Box>
       <List>
-        <ListItem button component={Link} to="/patient-home/start">
+        <ListItem button component={Link} to={paths.start}>
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
           <ListItemText primary="Start" />
         </ListItem>
-        <ListItem button component={Link} to="/patient-home/profile">
+        <ListItem button component={Link} to={paths.profile}>
           <ListItemIcon>
             <PersonIcon />
           </ListItemIcon>
           <ListItemText primary="Profile" />
         </ListItem>
-        <ListItem button component={Link} to="/patient-home/appointments">
+        <ListItem button component={Link} to={paths.appointments}>
           <ListItemIcon>
             <EventIcon />
           </ListItemIcon>
@@ -59,4 +65,4 @@ const PatientSidebar = () => {
   );
 };
 
-export default PatientSidebar;
+export default Sidebar;
