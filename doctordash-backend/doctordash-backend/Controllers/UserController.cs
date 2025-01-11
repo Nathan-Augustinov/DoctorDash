@@ -115,7 +115,8 @@ namespace doctordash_backend.Controllers
                     return Unauthorized(new { Message = "Invalid credentials." });
                 }
 
-                return Ok(new { Message = "Login successful", UserId = user.Id });
+                //return Ok(new { Message = "Login successful", UserId = user.Id });
+                return Ok(user);
             }
             catch (Exception ex)
             {

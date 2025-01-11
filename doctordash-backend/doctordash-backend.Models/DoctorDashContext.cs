@@ -17,6 +17,11 @@ namespace doctordash_backend.Models
 
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Doctor> Doctor { get; set; }
+        public virtual DbSet<Patient> Patient { get; set; }
+        public virtual DbSet<Timeslot> Timeslot { get; set; }
+        public virtual DbSet<Appointment> Appointment { get; set; }
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder.UseSqlServer("Server=localhost;Database=DoctorDash;Trusted_Connection=True;Encrypt=false");
@@ -36,7 +41,7 @@ namespace doctordash_backend.Models
                 entity.Property(e => e.Firstname).IsRequired();
                 entity.Property(e => e.Lastname).IsRequired();
                 entity.Property(e => e.Role).IsRequired();
-                entity.Property(e => e.CreatedAt).HasDefaultValueSql("GETDATE()");
+                entity.Property(e => e.CreatedAt).IsRequired();
             });
         }
     }

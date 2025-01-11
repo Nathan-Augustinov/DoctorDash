@@ -81,6 +81,34 @@ const RegisterPage = () => {
                     setRegisterError(errorResponse.message || "Failed to create user");
                     return;
                 }
+
+            const userData = await createUserResponse.json();
+
+            const roleSpecificUrl = formData.role === 'Doctor' ? 'https://localhost:7038/api/doctor' : 'https://localhost:7038/api/patient';
+            const roleSpecificBody = formData.role === 'Doctor' 
+                ? JSON.stringify({
+                    doctorId: userData.id,
+                    specialization: "",
+                    qualifications: "",
+                    bio: ""
+                }) : JSON.stringify({
+                    patientId: userData.id,
+                    address: "",
+                    medical_history: ""
+                });
+            const roleSpecificResponse = await fetch(roleSpecificUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: roleSpecificBody
+            });
+
+            if (!roleSpecificResponse.ok) {
+                const errorResponse = await roleSpecificResponse.json();
+                setRegisterError(errorResponse.message || `Failed to create ${formData.role}`);
+                return;
+            }
     
                 navigate('/login');
             } catch (error) {
@@ -162,7 +190,7 @@ const RegisterPage = () => {
                     sx={{ textAlign: 'left', '.MuiSelect-select': { textAlign: 'left' } }}
                 >
                     <MenuItem value="Doctor">Doctor</MenuItem>
-                    <MenuItem value="Admin">Patient</MenuItem>
+                    <MenuItem value="Patient">Patient</MenuItem>
                 </Select>
                 <FormHelperText style={{color: 'red'}}>{errors.role}</FormHelperText>
             </FormControl>

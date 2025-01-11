@@ -26,10 +26,17 @@ const LoginPage = () => {
                 return;
             }
 
+            const userData = await response.json();
+
+            if (userData.role === "Doctor") {
+                navigate('/doctor-home'); 
+            } else if (userData.role === "Patient") {
+                navigate('/patient-home'); 
+            }
+
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('sessionExpiry', Date.now() + (1000 * 60 * 60));
-
-            navigate('/home');
+            localStorage.setItem('role', userData.role);
         } catch (error) {      
             setError("Network error: Unable to connect.");
         }

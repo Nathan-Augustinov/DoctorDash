@@ -16,6 +16,12 @@ builder.Services.AddTransient<IRepository<User>, UserRepository>();
 builder.Services.AddTransient<IService<User>, UserService>();
 builder.Services.AddTransient<IRepository<Doctor>, DoctorRepository>();
 builder.Services.AddTransient<IService<Doctor>, DoctorService>();
+builder.Services.AddTransient<IRepository<Patient>, PatientRepository>();
+builder.Services.AddTransient<IService<Patient>, PatientService>();
+builder.Services.AddTransient<IRepository<Appointment>, AppointmentRepository>();
+builder.Services.AddTransient<IService<Appointment>, AppointmentService>();
+builder.Services.AddTransient<IRepository<Timeslot>, TimeslotRepository>();
+builder.Services.AddTransient<IService<Timeslot>, TimeslotService>();
 builder.Services.AddDbContext<DoctorDashContext>();
 
 builder.Services.AddCors(options =>
