@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import DoctorHomePage from './pages/DoctorHomePage';
-import PatientHomePage from './pages/PatientHomePage';
+import PatientDashboard from './pages/PatientDashboard';
 
 function App() {
   useEffect(() => {
@@ -49,7 +49,7 @@ function App() {
           <Route path="/login" element={<LoginPage/>} />
           <Route path="/register" element={<RegisterPage/>} />
           <Route path="/doctor-home" element={<DoctorHomePage/>} />
-          <Route path="/patient-home" element={<PatientHomePage/>} />
+          <Route path="/patient-home/*" element={<PatientDashboard/>} />
           <Route path="/" element={<Navigate replace to={roleRedirect()}/>}/>
         </Routes>
       </div>
