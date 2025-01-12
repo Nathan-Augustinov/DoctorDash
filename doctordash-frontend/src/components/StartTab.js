@@ -24,8 +24,18 @@ const StartTab = ({ role }) => {
     }
   };
 
-  const checkProfileCompletion = () => {
-    setProfileComplete(false);
+  const checkProfileCompletion = async () => {
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+
+    const apiUrl = `https://localhost:7038/api/${role}/${userId}`;
+    const response = await fetch(apiUrl);
+    const profileData = await response.json();
+
+    const isComplete = role === 'doctor' 
+      ? profileData.specialization && profileData.qualifications && profileData.bio
+      : profileData.address && profileData.medical_History;
+    setProfileComplete(isComplete);
   };
 
   const handleCompleteProfile = () => {

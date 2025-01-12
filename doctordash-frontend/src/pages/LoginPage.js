@@ -37,6 +37,7 @@ const LoginPage = () => {
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('sessionExpiry', Date.now() + (1000 * 60 * 60));
             localStorage.setItem('role', userData.role);
+            localStorage.setItem('userId', userData.id);
         } catch (error) {      
             setError("Network error: Unable to connect.");
         }

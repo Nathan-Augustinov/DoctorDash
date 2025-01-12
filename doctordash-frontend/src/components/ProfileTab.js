@@ -12,18 +12,33 @@ const ProfileTab = ({ role }) => {
     address: '',
     medicalHistory: ''
   });
-  //get the user Id
-  const userId = "";
 
   useEffect(() => {
     fetchProfileData();
   }, []);
 
   const fetchProfileData = async () => {
-    // Replace URL with your actual API endpoint
-    const response = await fetch(`https://localhost:7038/api/${role}/${userId}`);
-    const data = await response.json();
-    setProfileData(data);
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+
+    const roleUrl = `https://localhost:7038/api/${role}/${userId}`;
+    const roleResponse = await fetch(roleUrl);
+    const roleData = await roleResponse.json();
+
+    const userUrl = `https://localhost:7038/api/user/${userId}`;
+    const userResponse = await fetch(userUrl);
+    const userData = await userResponse.json();
+
+    setProfileData({
+        firstName: userData.firstname,
+        lastName: userData.lastname,
+        email: userData.email,
+        specialization: roleData.specialization,
+        qualifications: roleData.qualifications,
+        bio: roleData.bio,
+        address: roleData.address,
+        medicalHistory: roleData.medical_History
+    });
   };
 
   const handleChange = (event) => {
@@ -36,8 +51,35 @@ const ProfileTab = ({ role }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Implement update logic to POST changes to backend
-    console.log(profileData);
+
+    const userId = localStorage.getItem('userId');
+    if (!userId) return;
+
+    const apiUrl = `https://localhost:7038/api/${role}/${userId}`;
+    let updateData;
+
+    if (role === 'doctor') {
+        updateData = {
+            doctorId: userId,
+            specialization: profileData.specialization,
+            qualifications: profileData.qualifications,
+            bio: profileData.bio
+        };
+    } else if (role === 'patient') {
+        updateData = {
+            patientId: userId,
+            address: profileData.address,
+            medical_History: profileData.medicalHistory
+        };
+    }
+
+    const response = await fetch(apiUrl, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updateData)
+    });
   };
 
   return (
@@ -50,6 +92,7 @@ const ProfileTab = ({ role }) => {
         name="firstName"
         value={profileData.firstName}
         onChange={handleChange}
+        disabled={true}
       />
       <TextField
         fullWidth
@@ -58,6 +101,7 @@ const ProfileTab = ({ role }) => {
         name="lastName"
         value={profileData.lastName}
         onChange={handleChange}
+        disabled={true}
       />
       <TextField
         fullWidth
@@ -66,9 +110,7 @@ const ProfileTab = ({ role }) => {
         name="email"
         value={profileData.email}
         onChange={handleChange}
-        InputProps={{
-          readOnly: true,
-        }}
+        disabled={true}
       />
       {role === 'doctor' && (
         <>

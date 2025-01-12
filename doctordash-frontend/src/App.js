@@ -27,6 +27,8 @@ function App() {
     if (currentPath !== '/login' && currentPath !== '/register') {
       localStorage.removeItem('isLoggedIn');
       localStorage.removeItem('sessionExpiry');
+      localStorage.removeItem('role');
+      localStorage.removeItem('userId');
       
       window.location.href = '/login';
     }

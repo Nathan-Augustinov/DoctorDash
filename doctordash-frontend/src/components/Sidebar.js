@@ -16,6 +16,8 @@ const Sidebar = ({ role }) => {
   const handleLogout = () => {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('sessionExpiry');
+    localStorage.removeItem('role');
+    localStorage.removeItem('userId');
     navigate('/login', { replace: true });
   };
 
