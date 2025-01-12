@@ -1,5 +1,6 @@
 using doctordash_backend.Models;
 using doctordash_backend.Services.Interfaces;
+using doctordash_backend.Services.Repositories;
 using System;
 using System.Threading.Tasks;
 
@@ -40,6 +41,15 @@ namespace doctordash_backend.Services.Services
                 throw new ArgumentNullException("Doctor entity must be non-nullable!");
             }
             return _repository.UpdateAsync(entity);
+        }
+
+        public async Task<IEnumerable<User>> FindDoctorsBySpecialization(string specialization)
+        {
+            if (specialization == null)
+            {
+                throw new ArgumentNullException("Specialization must be non-nullable!");
+            }
+            return await ((DoctorRepository)_repository).FindDoctorsBySpecialization(specialization);
         }
     }
 }

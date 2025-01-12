@@ -88,5 +88,16 @@ namespace doctordash_backend.Services.Services
 
             return await _repository.UpdateAsync(entity);
         }
+
+        public async Task<IEnumerable<User>> FindUsers(string query, string role)
+        {
+            if (query == null || role == null)
+            {
+                throw new ArgumentNullException("Search query or role must be non-nullable!");
+            }
+
+            var normalizedQuery = query.Trim().ToLower();
+            return await ((UserRepository)_repository).FindUsers(normalizedQuery, role);
+        }
     }
 }

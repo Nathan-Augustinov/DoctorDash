@@ -123,5 +123,27 @@ namespace doctordash_backend.Controllers
                 return BadRequest(new { Message = ex.Message });
             }
         }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchUsers(string query, string role)
+        {
+            try
+            {
+                var results = await ((UserService)_service).FindUsers(query, role);
+                if (!results.Any())
+                    return NotFound(new { Message = "No matches found." });
+
+                return Ok(results.Select(user => new
+                {
+                    FullName = user.Firstname + " " + user.Lastname,
+                    user.Role,
+                    UserId = user.Id 
+                }));
+            } 
+            catch (Exception ex)
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
     }
 }

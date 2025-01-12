@@ -47,5 +47,17 @@ namespace doctordash_backend.Services.Repositories
             await _doctorDashContext.SaveChangesAsync();
             return doctor.Entity;
         }
+
+        public async Task<IEnumerable<User>> FindDoctorsBySpecialization(string specialization)
+        {
+            return await _doctorDashContext.User
+                .Join(_doctorDashContext.Doctor,
+                      user => user.Id,
+                      doctor => doctor.DoctorId,
+                      (user, doctor) => new { User = user, Doctor = doctor })
+                .Where(ud => ud.Doctor.Specialization.ToLower().Contains(specialization.ToLower()))
+                .Select(ud => ud.User)
+                .ToListAsync();
+        }
     }
 }

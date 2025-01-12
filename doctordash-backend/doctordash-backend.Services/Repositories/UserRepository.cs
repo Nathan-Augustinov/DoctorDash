@@ -60,5 +60,14 @@ namespace doctordash_backend.Services.Repositories
         {
             return await _doctorDashContext.User.FirstOrDefaultAsync(User => User.Email == email);
         }
+
+        public async Task<IEnumerable<User>> FindUsers(string query, string role)
+        {
+            return await _doctorDashContext.User
+                .Where(user => user.Role.ToLower() == role.ToLower() &&
+                               ((user.Firstname.ToLower() + " " + user.Lastname.ToLower()).Contains(query) ||
+                               (user.Lastname.ToLower() + " " + user.Firstname.ToLower()).Contains(query)))
+                .ToListAsync();
+        }
     }
 }

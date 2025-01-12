@@ -100,5 +100,26 @@ namespace doctordash_backend.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("searchBySpecialization")]
+        public async Task<IActionResult> SearchBySpecialization([FromQuery] string specialization)
+        {
+            try
+            {
+                var doctors = await ((DoctorService)_service).FindDoctorsBySpecialization(specialization);
+                var results = doctors.Select(doctor => new
+                {
+                    FullName = doctor.Firstname + " " + doctor.Lastname,
+                    Role = doctor.Role,
+                    UserId = doctor.Id
+                }).ToList();
+
+                return Ok(results);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
+        }
     }
 }

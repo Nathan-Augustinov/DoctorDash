@@ -8,6 +8,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import EventIcon from '@mui/icons-material/Event';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import SearchIcon from '@mui/icons-material/Search';
 import { Drawer, Typography, Box } from '@mui/material';
 
 const Sidebar = ({ role }) => {
@@ -24,7 +25,8 @@ const Sidebar = ({ role }) => {
   const paths = {
     start: `/${role.toLowerCase()}-home/start`,
     profile: `/${role.toLowerCase()}-home/profile`,
-    appointments: `/${role.toLowerCase()}-home/appointments`
+    appointments: `/${role.toLowerCase()}-home/appointments`,
+    search: `/${role.toLowerCase()}-home/search`
   };
 
   return (
@@ -55,6 +57,12 @@ const Sidebar = ({ role }) => {
             <EventIcon />
           </ListItemIcon>
           <ListItemText primary="Appointments" />
+        </ListItem>
+        <ListItem button component={Link} to={paths.search}>
+          <ListItemIcon>
+            <SearchIcon />
+          </ListItemIcon>
+          <ListItemText primary="Search" />
         </ListItem>
         <ListItem button onClick={handleLogout}>
           <ListItemIcon>
