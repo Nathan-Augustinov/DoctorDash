@@ -72,9 +72,55 @@ const RegisterPage = () => {
     };
 
     const handleRegister = async (event) => {
+        const createUserUrl = 'https://localhost:7038/api/user';
         event.preventDefault();
+        setRegisterError('');
         if (validateForm()) {
-            // Registration logic here...
+            try {
+                const createUserResponse = await fetch(createUserUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+    
+                if (!createUserResponse.ok) {
+                    const errorResponse = await createUserResponse.json();
+                    setRegisterError(errorResponse.message || "Failed to create user");
+                    return;
+                }
+            const userData = await createUserResponse.json();
+            const roleSpecificUrl = formData.role === 'Doctor' ? 'http://localhost:5249/api/doctor' : 'http://localhost:5249/api/patient';
+            const roleSpecificBody = formData.role === 'Doctor' 
+                ? JSON.stringify({
+                    doctorId: userData.id,
+                    specialization: "",
+                    qualifications: "",
+                    bio: ""
+                }) : JSON.stringify({
+                    patientId: userData.id,
+                    address: "",
+                    medical_history: ""
+                });
+            const roleSpecificResponse = await fetch(roleSpecificUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: roleSpecificBody
+            });
+            if (!roleSpecificResponse.ok) {
+                const errorResponse = await roleSpecificResponse.json();
+                setRegisterError(errorResponse.message || `Failed to create ${formData.role}`);
+                return;
+            }
+    
+                navigate('/login');
+            } catch (error) {
+                console.error("Error during registration:", error);
+                setRegisterError("Network error: Unable to connect.");
+            }
         }
     };
 
