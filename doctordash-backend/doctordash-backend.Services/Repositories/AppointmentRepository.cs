@@ -50,5 +50,12 @@ namespace doctordash_backend.Services.Repositories
             await _context.SaveChangesAsync();
             return appointment.Entity;
         }
+
+        public async Task<IEnumerable<Appointment>> FindByUserId(Guid userId)
+        {
+            return await _context.Appointment
+                .Where(a => a.DoctorId == userId || a.PatientId == userId)
+                .ToListAsync();
+        }
     }
 }

@@ -1,5 +1,6 @@
 using doctordash_backend.Models;
 using doctordash_backend.Services.Interfaces;
+using doctordash_backend.Services.Repositories;
 using System;
 using System.Threading.Tasks;
 
@@ -40,6 +41,11 @@ namespace doctordash_backend.Services.Services
                 throw new ArgumentNullException("Appointment entity must be non-null!");
             }
             return await _repository.UpdateAsync(entity);
+        }
+
+        public async Task<IEnumerable<Appointment>> GetAppointmentsByUserId(Guid userId)
+        {
+            return await ((AppointmentRepository)_repository).FindByUserId(userId);
         }
     }
 }

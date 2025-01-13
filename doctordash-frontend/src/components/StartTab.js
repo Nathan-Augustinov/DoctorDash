@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Typography, Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import AppointmentsList from './AppointmentsTab';
 
 const StartTab = ({ role }) => {
   const [appointments, setAppointments] = useState([]);
@@ -60,13 +61,7 @@ const StartTab = ({ role }) => {
       <Typography variant="h6" gutterBottom>
         Upcoming Appointments
       </Typography>
-      {appointments.map(appointment => (
-        <Box key={appointment.id} sx={{ borderBottom: '1px solid #ddd', paddingBottom: 2, marginBottom: 2 }}>
-          <Typography>Date: {appointment.date}</Typography>
-          <Typography>Time: {appointment.time}</Typography>
-          <Typography>{role === "patient" ? `Doctor: ${appointment.doctor}` : `Patient: ${appointment.patient} - Issue: ${appointment.issue}`}</Typography>
-        </Box>
-      ))}
+      <AppointmentsList />
     </Box>
   );
 };

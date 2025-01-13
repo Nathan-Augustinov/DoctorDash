@@ -5,6 +5,7 @@ import StartTab from '../components/StartTab';
 import ProfileTab from '../components/ProfileTab';
 import SearchTab from '../components/SearchTab';
 import TimeslotManagementTab from '../components/TimeslotManagementTab';
+import AppointmentsList from '../components/AppointmentsTab';
 
 const Dashboard = ({ role }) => {
     const capitalizeFirstLetter = (string) => {
@@ -18,7 +19,7 @@ const Dashboard = ({ role }) => {
             <Routes>
               <Route path="start" element={<StartTab role={role}/>} />
               <Route path="profile" element={<ProfileTab role={role} />} />
-              <Route path="appointments" element={<StartTab role={role} />} />
+              <Route path="appointments" element={<AppointmentsList />} />
               <Route path="search" element={<SearchTab role={role} />} />
               <Route path="/" element={<Navigate replace to="start" />} />
               <Route path="timeslots" element={<TimeslotManagementTab doctorId={localStorage.getItem("userId")} />} />

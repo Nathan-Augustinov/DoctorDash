@@ -1,5 +1,6 @@
 using doctordash_backend.Models;
 using doctordash_backend.Services.Interfaces;
+using doctordash_backend.Services.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -90,6 +91,20 @@ namespace doctordash_backend.Controllers
             {
                 await _service.DeleteAsync(id);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("getUserAppointments")]
+        public async Task<IActionResult> GetUserAppointments([FromQuery] Guid userId)
+        {
+            try
+            {
+                var appointments = await ((AppointmentService) _service).GetAppointmentsByUserId(userId);
+                return Ok(appointments);
             }
             catch (Exception ex)
             {
