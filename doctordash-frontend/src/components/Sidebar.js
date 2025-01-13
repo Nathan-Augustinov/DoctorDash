@@ -1,16 +1,21 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import {
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Drawer,
+  Typography,
+  Box,
+  Divider,
+} from '@mui/material';
 import HomeIcon from '@mui/icons-material/Home';
 import PersonIcon from '@mui/icons-material/Person';
 import EventIcon from '@mui/icons-material/Event';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import SearchIcon from '@mui/icons-material/Search';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import { Drawer, Typography, Box, Divider } from '@mui/material';
 
 const Sidebar = ({ role }) => {
   const navigate = useNavigate();
@@ -28,7 +33,7 @@ const Sidebar = ({ role }) => {
     profile: `/${role.toLowerCase()}-home/profile`,
     appointments: `/${role.toLowerCase()}-home/appointments`,
     search: `/${role.toLowerCase()}-home/search`,
-    timeslots: `/${role.toLowerCase()}-home/timeslots`
+    timeslots: `/${role.toLowerCase()}-home/timeslots`,
   };
 
   return (
@@ -44,50 +49,78 @@ const Sidebar = ({ role }) => {
           boxSizing: 'border-box',
           display: 'flex',
           flexDirection: 'column',
+          background: 'linear-gradient(to bottom, #f0f4ff, #dfe9fc)',
+          borderRight: '1px solid #dfe9fc',
         },
       }}
     >
-      <Box sx={{ padding: 2 }}>
+      <Box
+        sx={{
+          padding: 2,
+          textAlign: 'center',
+          background: '#6a11cb',
+          color: 'white',
+          borderBottom: '1px solid #dfe9fc',
+        }}
+      >
         <Typography variant="h6" noWrap>
           {role} Dashboard
         </Typography>
       </Box>
       <List>
         <Divider />
-        <ListItem button component={Link} to={paths.start}>
-          <ListItemIcon><HomeIcon /></ListItemIcon>
-          <ListItemText primary="Start" />
-        </ListItem>
-        <Divider />
-        <ListItem button component={Link} to={paths.profile}>
-          <ListItemIcon><PersonIcon /></ListItemIcon>
-          <ListItemText primary="Profile" />
-        </ListItem>
-        <Divider />
-        <ListItem button component={Link} to={paths.appointments}>
-          <ListItemIcon><EventIcon /></ListItemIcon>
-          <ListItemText primary="Appointments" />
-        </ListItem>
-        <Divider />
-        <ListItem button component={Link} to={paths.search}>
-          <ListItemIcon><SearchIcon /></ListItemIcon>
-          <ListItemText primary="Search" />
-        </ListItem>
-        <Divider />
-        {role === 'Doctor' && (
-          <ListItem button component={Link} to={paths.timeslots}>
-            <ListItemIcon>
-              <AccessTimeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Timeslots" />
+        {[
+          { path: paths.start, label: 'Start', icon: <HomeIcon /> },
+          { path: paths.profile, label: 'Profile', icon: <PersonIcon /> },
+          { path: paths.appointments, label: 'Appointments', icon: <EventIcon /> },
+          { path: paths.search, label: 'Search', icon: <SearchIcon /> },
+          ...(role === 'Doctor'
+            ? [{ path: paths.timeslots, label: 'Timeslots', icon: <AccessTimeIcon /> }]
+            : []),
+        ].map(({ path, label, icon }) => (
+          <ListItem
+            button
+            component={Link}
+            to={path}
+            key={label}
+            sx={{
+              borderRadius: '8px',
+              margin: '8px 16px',
+              '&:hover': {
+                background: '#2575fc',
+                color: 'white',
+                '& .MuiListItemIcon-root': {
+                  color: 'white',
+                },
+              },
+            }}
+          >
+            <ListItemIcon sx={{ color: '#6a11cb' }}>{icon}</ListItemIcon>
+            <ListItemText primary={label} />
           </ListItem>
-        )}
+        ))}
         <Divider />
       </List>
-      <Box sx={{ marginTop: 'auto' }}>
-      <Divider />
-        <ListItem button onClick={handleLogout}>
-          <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+      <Box sx={{ marginTop: 'auto', paddingBottom: 2 }}>
+        <Divider />
+        <ListItem
+          button
+          onClick={handleLogout}
+          sx={{
+            borderRadius: '8px',
+            margin: '8px 16px',
+            '&:hover': {
+              background: '#ff5252',
+              color: 'white',
+              '& .MuiListItemIcon-root': {
+                color: 'white',
+              },
+            },
+          }}
+        >
+          <ListItemIcon sx={{ color: '#ff5252' }}>
+            <ExitToAppIcon />
+          </ListItemIcon>
           <ListItemText primary="Logout" />
         </ListItem>
       </Box>
