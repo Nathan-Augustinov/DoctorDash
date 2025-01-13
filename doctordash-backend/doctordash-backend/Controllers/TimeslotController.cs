@@ -1,6 +1,8 @@
 using doctordash_backend.Models;
 using doctordash_backend.Services.Interfaces;
+using doctordash_backend.Services.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
@@ -95,6 +97,18 @@ namespace doctordash_backend.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("getDoctorTimeslots")]
+        public async Task<IActionResult> GetTimeslotsByDoctor([FromQuery] Guid doctorId)
+        {
+            var timeslots = await ((TimeslotService)_service).GetTimeslotsByDoctor(doctorId);
+            if (!timeslots.Any())
+            {
+                return NotFound("No timeslots found for the specified doctor.");
+            }
+
+            return Ok(timeslots);
         }
     }
 }

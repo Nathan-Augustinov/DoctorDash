@@ -52,5 +52,12 @@ namespace doctordash_backend.Services.Repositories
             await _doctorDashContext.SaveChangesAsync();
             return timeslot.Entity;
         }
+
+        public async Task<IEnumerable<Timeslot>> GetTimeslotsByDoctor(Guid doctorId)
+        {
+            return await _doctorDashContext.Timeslot
+                .Where(t => t.DoctorId == doctorId && t.IsAvailable)
+                .ToListAsync();
+        }
     }
 }

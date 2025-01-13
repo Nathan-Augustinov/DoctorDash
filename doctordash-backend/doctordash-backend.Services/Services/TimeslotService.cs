@@ -1,5 +1,6 @@
 using doctordash_backend.Models;
 using doctordash_backend.Services.Interfaces;
+using doctordash_backend.Services.Repositories;
 using System;
 using System.Threading.Tasks;
 
@@ -55,6 +56,17 @@ namespace doctordash_backend.Services.Services
             }
 
             return _repository.UpdateAsync(entity);
+        }
+
+        public async Task<IEnumerable<Timeslot>> GetTimeslotsByDoctor(Guid doctorId)
+        {
+            if (doctorId == Guid.Empty)
+            {
+                throw new ArgumentNullException("Doctor ID must be non-empty!");
+            }
+
+            return await ((TimeslotRepository)_repository).GetTimeslotsByDoctor(doctorId);
+
         }
     }
 }
