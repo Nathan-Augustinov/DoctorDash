@@ -91,7 +91,7 @@ const RegisterPage = () => {
                     return;
                 }
             const userData = await createUserResponse.json();
-            const roleSpecificUrl = formData.role === 'Doctor' ? 'http://localhost:5249/api/doctor' : 'http://localhost:5249/api/patient';
+            const roleSpecificUrl = formData.role === 'Doctor' ? 'https://localhost:7038/api/doctor' : 'https://localhost:7038/api/patient';
             const roleSpecificBody = formData.role === 'Doctor' 
                 ? JSON.stringify({
                     doctorId: userData.id,

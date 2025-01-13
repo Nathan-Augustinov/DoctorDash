@@ -9,6 +9,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import EventIcon from '@mui/icons-material/Event';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import SearchIcon from '@mui/icons-material/Search';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { Drawer, Typography, Box, Divider } from '@mui/material';
 
 const Sidebar = ({ role }) => {
@@ -26,7 +27,8 @@ const Sidebar = ({ role }) => {
     start: `/${role.toLowerCase()}-home/start`,
     profile: `/${role.toLowerCase()}-home/profile`,
     appointments: `/${role.toLowerCase()}-home/appointments`,
-    search: `/${role.toLowerCase()}-home/search`
+    search: `/${role.toLowerCase()}-home/search`,
+    timeslots: `/${role.toLowerCase()}-home/timeslots`
   };
 
   return (
@@ -71,6 +73,15 @@ const Sidebar = ({ role }) => {
           <ListItemIcon><SearchIcon /></ListItemIcon>
           <ListItemText primary="Search" />
         </ListItem>
+        <Divider />
+        {role === 'Doctor' && (
+          <ListItem button component={Link} to={paths.timeslots}>
+            <ListItemIcon>
+              <AccessTimeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Timeslots" />
+          </ListItem>
+        )}
         <Divider />
       </List>
       <Box sx={{ marginTop: 'auto' }}>
